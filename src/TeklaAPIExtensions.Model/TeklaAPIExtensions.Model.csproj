@@ -15,6 +15,8 @@
   <PropertyGroup>
     <Authors>Mikhail Koshelev</Authors>
     <Version>0.0.1</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/mikl0906/TeklaAPIExtensions</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
