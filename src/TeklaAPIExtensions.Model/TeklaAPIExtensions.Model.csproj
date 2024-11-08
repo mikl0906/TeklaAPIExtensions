@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tekla.Structures.Model" Version="2024.0.4" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <!-- Nuget package properties -->
+  <PropertyGroup>
+    <Authors>Mikhail Koshelev</Authors>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+</Project>
