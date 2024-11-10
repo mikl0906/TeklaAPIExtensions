@@ -14,10 +14,11 @@
   <!-- Nuget package properties -->
   <PropertyGroup>
     <Authors>Mikhail Koshelev</Authors>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/mikl0906/TeklaAPIExtensions</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
