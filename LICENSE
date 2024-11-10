@@ -19,3 +19,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Third-Party Notices
+
+This library is an independent tool developed to provide extension methods
+for the Tekla Open API. It is not endorsed, affiliated with, or certified
+by Trimble Solutions Corporation. "Tekla" and "Trimble" are trademarks of
+Trimble Solutions Corporation. Use of this library requires the Tekla Open API,
+which is provided by Trimble Solutions Corporation and requires a separate, valid license agreement.
