@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeklaAPIExtensions.Model", "TeklaAPIExtensions.Model\TeklaAPIExtensions.Model.csproj", "{D2B545D4-9755-40DE-9CBB-A87D01621BA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaAPIExtensions.Drawing", "TeklaAPIExtensions.Drawing\TeklaAPIExtensions.Drawing.csproj", "{5FBCB78B-9FD7-4A65-B859-6883E2946A77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D2B545D4-9755-40DE-9CBB-A87D01621BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2B545D4-9755-40DE-9CBB-A87D01621BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2B545D4-9755-40DE-9CBB-A87D01621BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FBCB78B-9FD7-4A65-B859-6883E2946A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FBCB78B-9FD7-4A65-B859-6883E2946A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FBCB78B-9FD7-4A65-B859-6883E2946A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FBCB78B-9FD7-4A65-B859-6883E2946A77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
