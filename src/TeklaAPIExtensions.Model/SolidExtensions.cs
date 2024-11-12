@@ -59,4 +59,21 @@ public static class SolidExtensions
         marginVector ??= new Vector(0, 0, 0);
         return new(solid.MinimumPoint - marginVector, solid.MaximumPoint + marginVector);
     }
+
+    /// <summary>
+    /// Retrieves all edges from the given solid.
+    /// </summary>
+    /// <param name="solid">The solid from which to retrieve edges.</param>
+    /// <returns>An enumerable collection of edges.</returns>
+    public static IEnumerable<Edge> GetEdges(this Solid solid)
+    {
+        var edgeEnumerator = solid.GetEdgeEnumerator();
+        while (edgeEnumerator.MoveNext())
+        {
+            if (edgeEnumerator.Current is Edge edge)
+            {
+                yield return edge;
+            }
+        }
+    }
 }

@@ -16,15 +16,6 @@ public static class LoopExtensions
     /// </summary>
     /// <param name="loop">The Loop object to get vertices from.</param>
     /// <returns>An IEnumerable of Point objects representing the vertices of the loop.</returns>
-    /// <example>
-    /// <code>
-    /// Loop loop = // ... initialize loop
-    /// foreach(var vertex in loop.GetVertices())
-    /// {
-    ///     // Process vertex
-    /// }
-    /// </code>
-    /// </example>
     public static IEnumerable<Point> GetVertices(this Loop loop)
     {
         var vertexEnumerator = loop.GetVertexEnumerator();
