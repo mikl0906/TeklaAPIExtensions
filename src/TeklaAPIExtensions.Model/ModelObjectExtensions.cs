@@ -13,7 +13,7 @@ public static class ModelObjectExtensions
     /// <param name="modelObject">The model object to get the property from.</param>
     /// <param name="attributeName">The name of the report property to retrieve.</param>
     /// <param name="value">When this method returns, contains the retrieved value if found; otherwise, 0.</param>
-    /// <returns>true if the property was found and successfully retrieved; otherwise, false.</returns>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetProperty(this ModelObject modelObject, string attributeName, out int value)
     {
         value = 0;
@@ -26,7 +26,7 @@ public static class ModelObjectExtensions
     /// <param name="modelObject">The model object to get the property from.</param>
     /// <param name="attributeName">The name of the report property to retrieve.</param>
     /// <param name="value">When this method returns, contains the retrieved value if found; otherwise, 0.0.</param>
-    /// <returns>true if the property was found and successfully retrieved; otherwise, false.</returns>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetProperty(this ModelObject modelObject, string attributeName, out double value)
     {
         value = 0;
@@ -39,7 +39,7 @@ public static class ModelObjectExtensions
     /// <param name="modelObject">The model object to get the property from.</param>
     /// <param name="attributeName">The name of the report property to retrieve.</param>
     /// <param name="value">When this method returns, contains the retrieved value if found; otherwise, empty string.</param>
-    /// <returns>true if the property was found and successfully retrieved; otherwise, false.</returns>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetProperty(this ModelObject modelObject, string attributeName, out string value)
     {
         value = string.Empty;
@@ -52,7 +52,7 @@ public static class ModelObjectExtensions
     /// <param name="modelObject">The model object to get the UDA from.</param>
     /// <param name="attributeName">The name of the UDA to retrieve.</param>
     /// <param name="value">When this method returns, contains the retrieved value if found; otherwise, 0.</param>
-    /// <returns>true if the UDA was found and successfully retrieved; otherwise, false.</returns>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetUDA(this ModelObject modelObject, string attributeName, out int value)
     {
         value = 0;
@@ -65,7 +65,7 @@ public static class ModelObjectExtensions
     /// <param name="modelObject">The model object to get the UDA from.</param>
     /// <param name="attributeName">The name of the UDA to retrieve.</param>
     /// <param name="value">When this method returns, contains the retrieved value if found; otherwise, 0.0.</param>
-    /// <returns>true if the UDA was found and successfully retrieved; otherwise, false.</returns>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetUDA(this ModelObject modelObject, string attributeName, out double value)
     {
         value = 0;
@@ -78,10 +78,23 @@ public static class ModelObjectExtensions
     /// <param name="modelObject">The model object to get the UDA from.</param>
     /// <param name="attributeName">The name of the UDA to retrieve.</param>
     /// <param name="value">When this method returns, contains the retrieved value if found; otherwise, empty string.</param>
-    /// <returns>true if the UDA was found and successfully retrieved; otherwise, false.</returns>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetUDA(this ModelObject modelObject, string attributeName, out string value)
     {
         value = string.Empty;
         return modelObject.GetUserProperty(attributeName, ref value);
+    }
+
+    /// <summary>
+    /// Tries to get the dynamic string property of a <see cref="ModelObject"/>.
+    /// </summary>
+    /// <param name="modelObject">The <see cref="ModelObject"/> from which to get the property.</param>
+    /// <param name="attributeName">The name of the attribute to retrieve.</param>
+    /// <param name="value">When this method returns, contains the string value of the attribute if the retrieval was successful; otherwise, an empty string.</param>
+    /// <returns><c>true</c> if the property was successfully retrieved; otherwise, <c>false</c>.</returns>
+    public static bool TryGetDynamicStringProperty(this ModelObject modelObject, string attributeName, out string value)
+    {
+        value = string.Empty;
+        return modelObject.GetDynamicStringProperty(attributeName, ref value);
     }
 }
