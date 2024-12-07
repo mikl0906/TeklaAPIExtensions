@@ -76,4 +76,78 @@ public static class SolidExtensions
             }
         }
     }
+
+    /// <summary>
+    /// Retrieves all the points from the edges of the given solid.
+    /// </summary>
+    /// <param name="solid">The solid from which to extract the points.</param>
+    /// <returns>An enumerable collection of points representing the start and end points of the edges of the solid.</returns>
+    public static IEnumerable<Point> GetPoints(this Solid solid)
+    {
+        var edgeEnumerator = solid.GetEdgeEnumerator();
+        while (edgeEnumerator.MoveNext())
+        {
+            if (edgeEnumerator.Current is Edge edge)
+            {
+                yield return edge.StartPoint;
+                yield return edge.EndPoint;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the intersection points of a plane defined by three points with a solid.
+    /// </summary>
+    /// <param name="solid">The solid to find intersection points with.</param>
+    /// <param name="point1">The first point defining the plane.</param>
+    /// <param name="point2">The second point defining the plane.</param>
+    /// <param name="point3">The third point defining the plane.</param>
+    /// <returns>A list of points where the plane intersects with the solid.</returns>
+    public static List<Point> GetPlaneIntersectionPoints(this Solid solid, Point point1, Point point2, Point point3)
+    {
+        var points = new List<Point>();
+        var intersectionPoints = solid.GetAllIntersectionPoints(point1, point2, point3);
+        while (intersectionPoints.MoveNext())
+        {
+            if (intersectionPoints.Current is Point point)
+            {
+                points.Add(point);
+            }
+        }
+        return points;
+    }
+
+    /// <summary>
+    /// Calculates the intersection points between the given solid and a plane defined by the origin and two vectors.
+    /// </summary>
+    /// <param name="solid">The solid to intersect with the plane.</param>
+    /// <param name="origin">The origin point of the plane.</param>
+    /// <param name="xAxis">The vector defining the X-axis direction of the plane.</param>
+    /// <param name="yAxis">The vector defining the Y-axis direction of the plane.</param>
+    /// <returns>A list of points where the solid intersects with the plane.</returns>
+    public static List<Point> GetPlaneIntersectionPoints(this Solid solid, Point origin, Vector xAxis, Vector yAxis)
+    {
+        return solid.GetPlaneIntersectionPoints(origin, origin + xAxis, origin + yAxis);
+    }
+
+    /// <summary>
+    /// Calculates the intersection points between the given solid and a plane defined by the provided coordinate system.
+    /// </summary>
+    /// <param name="solid">The solid to intersect with the plane.</param>
+    /// <param name="cs">The coordinate system defining the plane. The plane is defined by the origin and the X and Y axes of this coordinate system.</param>
+    /// <returns>A list of points where the solid intersects with the plane.</returns>
+    public static List<Point> GetPlaneIntersectionPoints(this Solid solid, CoordinateSystem cs)
+    {
+        return solid.GetPlaneIntersectionPoints(cs.Origin, cs.Origin + cs.AxisX, cs.Origin + cs.AxisY);
+    }
+
+    /// <summary>
+    /// Calculates the center point of the given solid.
+    /// </summary>
+    /// <param name="solid">The solid for which to calculate the center point.</param>
+    /// <returns>The center point of the solid.</returns>
+    public static Point GetCenterPoint(this Solid solid)
+    {
+        return new Vector(solid.MinimumPoint + solid.MaximumPoint) * 0.5;
+    }
 }

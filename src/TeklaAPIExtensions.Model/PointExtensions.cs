@@ -1,4 +1,5 @@
 using Tekla.Structures.Geometry3d;
+using SN = System.Numerics;
 
 namespace TeklaAPIExtensions.Model;
 
@@ -16,6 +17,16 @@ public static class PointExtensions
     public static double Dot(this Point point, Point other)
     {
         return point.X * other.X + point.Y * other.Y + point.Z * other.Z;
+    }
+
+    /// <summary>
+    /// Converts a Tekla Structures <see cref="Point"/> to a <see cref="SN.Vector3"/>.
+    /// </summary>
+    /// <param name="point">The <see cref="Point"/> to convert.</param>
+    /// <returns>A <see cref="SN.Vector3"/> representation of the given <see cref="Point"/>.</returns>
+    public static SN.Vector3 ToVector3(this Point point)
+    {
+        return new SN.Vector3((float)point.X, (float)point.Y, (float)point.Z);
     }
 
     /// <summary>
@@ -226,5 +237,67 @@ public static class PointExtensions
     {
         var plane = new GeometricPlane(cs.Origin, cs.AxisX, cs.AxisY);
         return GetClosestToPlane(points, plane);
+    }
+
+    /// <summary>
+    /// Projects a set of points onto a specified geometric plane.
+    /// </summary>
+    /// <param name="pointSet">The collection of points to be projected.</param>
+    /// <param name="plane">The geometric plane onto which the points will be projected.</param>
+    /// <returns>An IEnumerable of points projected onto the specified plane.</returns>
+    public static IEnumerable<Point> ProjectOnPlane(this IEnumerable<Point> pointSet, GeometricPlane plane)
+    {
+        foreach (var point in pointSet)
+        {
+            yield return Projection.PointToPlane(point, plane);
+        }
+    }
+
+    /// <summary>
+    /// Projects a set of points onto a specified plane defined by a coordinate system.
+    /// </summary>
+    /// <param name="pointSet">The set of points to be projected.</param>
+    /// <param name="coordinateSystem">The coordinate system defining the plane onto which the points will be projected.</param>
+    /// <returns>An enumerable collection of points projected onto the specified plane.</returns>
+    public static IEnumerable<Point> ProjectOnPlane(this IEnumerable<Point> pointSet, CoordinateSystem coordinateSystem)
+    {
+        var plane = new GeometricPlane(coordinateSystem.Origin, coordinateSystem.AxisX, coordinateSystem.AxisY);
+        return ProjectOnPlane(pointSet, plane);
+    }
+
+    /// <summary>
+    /// Projects a set of points onto a predefined geometric plane.
+    /// </summary>
+    /// <param name="pointSet">The set of points to be projected.</param>
+    /// <returns>An IEnumerable of points projected onto the plane.</returns>
+    public static IEnumerable<Point> ProjectOnPlane(this IEnumerable<Point> pointSet)
+    {
+        var plane = new GeometricPlane(new Point(0, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
+        return ProjectOnPlane(pointSet, plane);
+    }
+
+    /// <summary>
+    /// Calculates the average point from a set of points.
+    /// </summary>
+    /// <param name="points">The set of points to calculate the average from.</param>
+    /// <returns>
+    /// The average point as a <see cref="Point"/> if the set is not empty; otherwise, zero point.
+    /// </returns>
+    public static Point GetAveragePoint(this IEnumerable<Point> points)
+    {
+        var sum = new Point();
+        int count = 0;
+        foreach (var point in points)
+        {
+            sum += point;
+            count++;
+        }
+
+        if (count == 0)
+        {
+            return sum;
+        }
+
+        return new Vector(sum) * (1.0 / count);
     }
 }
