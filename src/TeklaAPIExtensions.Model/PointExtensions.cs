@@ -128,16 +128,14 @@ public static class PointExtensions
             var xDotValue = point.Dot(xVector);
             var yDotValue = point.Dot(yVector);
 
-            if (xDotValue - tolerance < minXDotValue &&
-                yDotValue > maxLeftYDotValue)
+            if (xDotValue + tolerance < minXDotValue || (xDotValue - tolerance < minXDotValue && yDotValue > maxLeftYDotValue))
             {
                 minXDotValue = xDotValue;
                 maxLeftYDotValue = yDotValue;
                 leftEdge = point;
             }
 
-            if (xDotValue + tolerance > maxXDotValue &&
-                yDotValue > maxRightYDotValue)
+            if (xDotValue - tolerance > maxXDotValue || (xDotValue + tolerance > maxXDotValue && yDotValue > maxRightYDotValue))
             {
                 maxXDotValue = xDotValue;
                 maxRightYDotValue = yDotValue;
@@ -147,7 +145,7 @@ public static class PointExtensions
 
         if (leftEdge is null || rightEdge is null)
         {
-            return points.ToList();
+            return [.. points];
         }
 
         if (Distance.PointToPoint(leftEdge, rightEdge) < tolerance)
