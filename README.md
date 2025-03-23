@@ -16,6 +16,11 @@ A collection of extension methods for Tekla Structures Open API to simplify comm
   - [`DrawingObjectEnumeratorExtensions`](src/TeklaAPIExtensions.Drawing/DrawingObjectEnumeratorExtensions.cs): LINQ-style filtering
   - [`PointListExtensions`](src/TeklaAPIExtensions.Drawing/PointListExtensions.cs): Convert between point collections
 
+## Packages
+
+- TeklaAPIExtensions.Model - Extension methods to types in Tekla.Structures.Model assembly
+- TeklaAPIExtensions.Drawing - Extension methods to types in Tekla.Structures.Drawing assembly
+
 ## Installation
 
 .NET CLI:
@@ -28,30 +33,110 @@ dotnet add package TeklaAPIExtensions.Drawing
 Project reference:
 ```xml
 <ItemGroup>
-  <PackageReference Include="TeklaAPIExtensions.Model" Version="0.0.2" />
-  <PackageReference Include="TeklaAPIExtensions.Drawing" Version="0.0.1" />
+  <PackageReference Include="TeklaAPIExtensions.Model" Version="0.0.8-ts2025" />
+  <PackageReference Include="TeklaAPIExtensions.Drawing" Version="0.0.5-ts2025" />
 </ItemGroup>
 ```
 
-## Usage
+The packages is combiled against different versions of Tekla.Structures packages
+
+| Tekla version | Valid package version |
+| ---|---|
+| 2022 | $(baseVersion)-ts2022 |
+| 2023 | $(baseVersion)-ts2023 |
+| 2024 | $(baseVersion)-ts2024 |
+| 2025 | $(baseVersion)-ts2025 |
+
+## Usage examples
+
+<code>OfType\<T></code> extension method is added to common enumerators to convert them into <code>IEnumerable\<T></code>
+
+Old way to retrieve beams using <code>ModelObjectEnumerator</code>:
+
+```c#
+using Tekla.Structures.Model;
+using TSMUI = Tekla.Structures.Model.UI;
+
+var enumerator = new TSMUI.ModelObjectSelector().GetSelectedObjects();
+var beams = new List<Beam>();
+while (enumerator.MoveNext())
+{
+    var modelObject = enumerator.Current as Beam;
+    if (modelObject != null)
+    {
+        beams.Add(modelObject);
+    }
+}
+```
+
+With TeklaAPIExtensions.Model becomes
+
+```c#
+using Tekla.Structures.Model;
+using TSMUI = Tekla.Structures.Model.UI;
+using TeklaAPIExtensions.Model;
+
+var beams = new TSMUI.ModelObjectSelector()
+    .GetSelectedObjects()
+    .OfType<Beam>()
+    .ToList();
+```
+
+"Try style" methods to retrieve UDA, Properties and Dynamic string properties
+
+```c#
+ModelObject anyModelObject;
+
+// String UDA
+if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out string value))
+{
+    Console.WriteLine("UDA not found");
+}
+
+// Double UDA
+if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out double value))
+{
+    Console.WriteLine("UDA not found");
+}
+
+// Int UDA
+if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out int value))
+{
+    Console.WriteLine("UDA not found");
+}
+
+// String property
+if (!anyModelObject.TryGetProperty("PROFILE", out string value))
+{
+    Console.WriteLine("PROFILE not found");
+}
+
+// Double property
+if (!anyModelObject.TryGetProperty("WEIGHT", out double value))
+{
+    Console.WriteLine("WEIGHT not found");
+}
+
+// Int property
+if (!anyModelObject.TryGetProperty("CLASS_ATTR", out int value))
+{
+    Console.WriteLine("CLASS_ATTR not found");
+}
+
+// Dynamic string
+if (!anyModelObject.TryGetDynamicStringProperty("MY_STRING", out string value))
+{
+    Console.WriteLine("MY_STRING not found");
+}
+```
+
+Geometry manipulations
 
 ```c#
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Solid;
 using TeklaAPIExtensions.Model;
-using TeklaAPIExtensions.Drawing;
-
-// Filter model objects by type
-var selectedObjects = new Tekla.Structures.Model.UI.ModelObjectSelector().GetSelectedObjects();
-var beams = selectedObjects.OfType<Beam>();
-
-// Get property values safely
-var modelObject = beams.First();
-if (modelObject.TryGetProperty("PROFILE", out string profile))
-{
-    // Use profile value
-}
 
 // Transform points
 List<Point> points = [new(0, 0, 0), new(1000, 1000, 1000)];
@@ -64,10 +149,12 @@ Vector viewDirection = new(0, 0, 1);
 List<Face> visibleFaces = solid.GetVisibleFaces(viewDirection).ToList();
 ```
 
+And much more...
+
 ## Requirements
 
-- .NET Standard 2.0
-- Tekla Structures 2024 or newer
+- .NET Standard 2.0 or .NET Framework 4.8
+- Tekla Structures 2022 or newer
 - Valid Tekla Open API license
   
 ## Licence
@@ -75,4 +162,3 @@ List<Face> visibleFaces = solid.GetVisibleFaces(viewDirection).ToList();
 MIT License. See [`LICENSE`](LICENSE) file for details.
 
 Note: This is an independent library and is not endorsed by or affiliated with Trimble Solutions Corporation. Tekla Structures and Tekla Open API are trademarks of Trimble Solutions Corporation.
-
