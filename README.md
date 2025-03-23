@@ -38,7 +38,7 @@ Project reference:
 </ItemGroup>
 ```
 
-The packages is combiled against different versions of Tekla.Structures packages
+The packages is combiled against different versions of Tekla.Structures packages. Users must select the package version to be the same as the Tekla API version they use.
 
 | Tekla version | Valid package version |
 | ---|---|
