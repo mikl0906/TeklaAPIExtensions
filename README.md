@@ -82,12 +82,19 @@ var beams = new TSMUI.ModelObjectSelector()
     .ToList();
 ```
 
-"Try style" methods to retrieve UDA, Properties and Dynamic string properties
+"Try style" methods to retrieve UDA, Properties and Dynamic string properties with out parameters
 
 ```c#
 ModelObject anyModelObject;
 
-// String UDA
+// Retrieve string UDA with default API
+string value = "";
+if (!anyModelObject.GetUserProperty("MY_ATTRIBUTE", ref value))
+{
+    Console.WriteLine("UDA not found");
+}
+
+// Retrieve string UDA with TeklaAPIExtensions.Model
 if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out string value))
 {
     Console.WriteLine("UDA not found");
