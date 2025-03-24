@@ -1,48 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
     <LangVersion>13</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <!-- Default to 2022 if not overridden -->
-    <TeklaVersion Condition="'$(TeklaVersion)'==''">2022</TeklaVersion>
   </PropertyGroup>
 
-  <!-- Set target frameworks conditionally -->
-  <PropertyGroup Condition="'$(TeklaVersion)'=='2022' or '$(TeklaVersion)'=='2023'">
-    <TargetFramework>net48</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TeklaVersion)'=='2024' or '$(TeklaVersion)'=='2025'">
-    <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
-  </PropertyGroup>
-
-  <!-- Set version-specific properties -->
-  <PropertyGroup>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2022'">2022.0.10715</TeklaModelPackageVersion>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2023'">2023.0.1</TeklaModelPackageVersion>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2024'">2024.0.4</TeklaModelPackageVersion>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2025'">2025.0.0</TeklaModelPackageVersion>
-
-    <TeklaDefineConstant Condition="'$(TeklaVersion)'=='2022'">TEKLA2022</TeklaDefineConstant>
-    <TeklaDefineConstant Condition="'$(TeklaVersion)'=='2023'">TEKLA2023</TeklaDefineConstant>
-    <TeklaDefineConstant Condition="'$(TeklaVersion)'=='2024'">TEKLA2024</TeklaDefineConstant>
-    <TeklaDefineConstant Condition="'$(TeklaVersion)'=='2025'">TEKLA2025</TeklaDefineConstant>
-  </PropertyGroup>
-
-  <!-- Set Tekla.Structures.Model version conditionally -->
   <ItemGroup>
-    <PackageReference Include="Tekla.Structures.Model" Version="$(TeklaModelPackageVersion)" ExcludeAssets="runtime" />
+    <PackageReference Include="Tekla.Structures.Model" Version="2022.0.10715" PrivateAssets="all" ExcludeAssets="runtime" />
   </ItemGroup>
-
-  <!-- Set define constants conditionally -->
-  <PropertyGroup>
-    <DefineConstants>$(DefineConstants);$(TeklaDefineConstant)</DefineConstants>
-  </PropertyGroup>
 
   <!-- Nuget package properties -->
   <PropertyGroup>
     <Authors>Mikhail Koshelev</Authors>
-    <Version>0.0.8</Version>
+    <Version>0.0.9</Version>
     <RepositoryUrl>https://github.com/mikl0906/TeklaAPIExtensions</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
