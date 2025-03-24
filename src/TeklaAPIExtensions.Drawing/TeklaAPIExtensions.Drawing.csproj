@@ -18,10 +18,10 @@
 
     <!-- Set version-specific properties -->
   <PropertyGroup>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2022'">2022.0.10715</TeklaModelPackageVersion>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2023'">2023.0.1</TeklaModelPackageVersion>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2024'">2024.0.4</TeklaModelPackageVersion>
-    <TeklaModelPackageVersion Condition="'$(TeklaVersion)'=='2025'">2025.0.0</TeklaModelPackageVersion>
+    <TeklaDrawingPackageVersion Condition="'$(TeklaVersion)'=='2022'">2022.0.10715</TeklaDrawingPackageVersion>
+    <TeklaDrawingPackageVersion Condition="'$(TeklaVersion)'=='2023'">2023.0.1</TeklaDrawingPackageVersion>
+    <TeklaDrawingPackageVersion Condition="'$(TeklaVersion)'=='2024'">2024.0.4</TeklaDrawingPackageVersion>
+    <TeklaDrawingPackageVersion Condition="'$(TeklaVersion)'=='2025'">2025.0.0</TeklaDrawingPackageVersion>
 
     <TeklaDefineConstant Condition="'$(TeklaVersion)'=='2022'">TEKLA2022</TeklaDefineConstant>
     <TeklaDefineConstant Condition="'$(TeklaVersion)'=='2023'">TEKLA2023</TeklaDefineConstant>
@@ -31,7 +31,7 @@
 
   <!-- Set Tekla.Structures.Model version conditionally -->
   <ItemGroup>
-    <PackageReference Include="Tekla.Structures.Drawing" Version="$(TeklaModelPackageVersion)" ExcludeAssets="runtime" />
+    <PackageReference Include="Tekla.Structures.Drawing" Version="$(TeklaDrawingPackageVersion)" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <!-- Set define constants conditionally -->
