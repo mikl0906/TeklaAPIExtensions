@@ -38,7 +38,7 @@ Project reference:
 </ItemGroup>
 ```
 
-The package does not include Tekla.Structures assemblies. They should be added separately in the project. Both packages support net48 and netstandard2.0. Both packages were build against corresponding versions of Tekla.Structures assemblies (both Tekla.Structures.Model and Tekla.Structures.Drawing)
+The packages do not include Tekla.Structures assemblies. They should be added separately in the project. Both packages support net48 and netstandard2.0. Both packages were build against corresponding versions of Tekla.Structures assemblies (both Tekla.Structures.Model and Tekla.Structures.Drawing)
 
 |Target framework | Tekla assembly version |
 |---|---|
