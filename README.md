@@ -33,19 +33,17 @@ dotnet add package TeklaAPIExtensions.Drawing
 Project reference:
 ```xml
 <ItemGroup>
-  <PackageReference Include="TeklaAPIExtensions.Model" Version="0.0.8-ts2025" />
-  <PackageReference Include="TeklaAPIExtensions.Drawing" Version="0.0.5-ts2025" />
+  <PackageReference Include="TeklaAPIExtensions.Model" Version="0.0.9" />
+  <PackageReference Include="TeklaAPIExtensions.Drawing" Version="0.0.6" />
 </ItemGroup>
 ```
 
-The packages is combiled against different versions of Tekla.Structures packages. Users must select the package version to be the same as the Tekla API version they use.
+The package does not include Tekla.Structures assemblies. They should be added separately in the project. Both packages support net48 and netstandard2.0. Both packages were build against corresponding versions of Tekla.Structures assemblies (both Tekla.Structures.Model and Tekla.Structures.Drawing)
 
-| Tekla version | Valid package version |
-| ---|---|
-| 2022 | $(baseVersion)-ts2022 |
-| 2023 | $(baseVersion)-ts2023 |
-| 2024 | $(baseVersion)-ts2024 |
-| 2025 | $(baseVersion)-ts2025 |
+|Target framework | Tekla assembly version |
+|---|---|
+|net48 | 2022.0.10715 |
+|netstandard2.0 | 2024.0.4 |
 
 ## Usage examples
 
