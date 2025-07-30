@@ -39,4 +39,51 @@ public class PointExtensionsTest
         await Assert.That(result).IsEqualTo(6);
         await Assert.That(magnitude1 * magnitude2).IsEqualTo(result);
     }
+
+    [Test]
+    public async Task RemoveDuplicates_RemovesClosePoints()
+    {
+        // Arrange
+        var points = new List<Point>
+        {
+            new(1, 0, 0),
+            new(1.001, 0, 0),
+            new(1.1, 0, 0),
+            new(0, 1, 0)
+        };
+
+        // Act
+        var result = points.RemoveDuplicates();
+
+        // Assert
+        await Assert.That(result).HasCount(3);
+    }
+
+    [Test]
+    public async Task GetEdgePoints_ReturnsCorrectEdgePoints()
+    {
+        // Arrange
+        var points = new List<Point>
+        {
+            new(0, 0, 0),
+            new(1, 0, 0),
+            new(0, 1, 0),
+            new(1, 1, 0),
+            new(0, 0, 1),
+            new(1, 0, 1),
+            new(0, 1, 1),
+            new(1, 1, 1),
+        };
+
+        var xVector = new Vector(1, 1, -1);
+        var yVector = new Vector(1, 1, 1);
+
+        // Act
+        var result = points.GetEdgePoints(xVector, yVector);
+
+        // Assert
+        await Assert.That(result).HasCount(2);
+        await Assert.That(result.First()).IsEqualTo(new Point(0, 0, 1));
+        await Assert.That(result.Last()).IsEqualTo(new Point(1, 1, 0));
+    }
 }
