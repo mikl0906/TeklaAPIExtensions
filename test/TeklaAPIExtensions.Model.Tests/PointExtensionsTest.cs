@@ -4,52 +4,27 @@ namespace TeklaAPIExtensions.Model.Tests;
 
 public class PointExtensionsTest
 {
-    [Fact]
-    public void Dot_BasicVectors_ReturnsCorrectDotProduct()
+    [Test]
+    [Arguments(1, 2, 3, 4, 5, 6, 32)] // 1*4 + 2*5 + 3*6 = 4 + 10 + 18 = 32
+    [Arguments(0, 0, 0, 4, 5, 6, 0)] // 0*4 + 0*5 + 0*6 = 0
+    [Arguments(1, 2, 3, 0, 0, 0, 0)] // 1*0 + 2*0 + 3*0 = 0
+    [Arguments(-1, -2, -3, 4, 5, 6, -32)] // -1*4 + -2*5 + -3*6 = -4 - 10 - 18 = -32
+    [Arguments(1, 0, 0, 0, 1, 0, 0)] // 1*0 + 0*1 + 0*0 = 0
+    public async Task Dot_ReturnsCorrectDotProduct(double x1, double y1, double z1, double x2, double y2, double z2, double expected)
     {
         // Arrange
-        var point1 = new Point(1, 2, 3);
-        var point2 = new Point(4, 5, 6);
+        var point1 = new Point(x1, y1, z1);
+        var point2 = new Point(x2, y2, z2);
 
         // Act
         double result = point1.Dot(point2);
 
         // Assert
-        Assert.Equal(32, result); // 1*4 + 2*5 + 3*6 = 4 + 10 + 18 = 32
+        await Assert.That(result).IsEqualTo(expected);
     }
 
-    [Fact]
-    public void Dot_WithZeroPoint_ReturnsZero()
-    {
-        // Arrange
-        var point1 = new Point(1, 2, 3);
-        var zeroPoint = new Point(0, 0, 0);
-
-        // Act
-        double result1 = point1.Dot(zeroPoint);
-        double result2 = zeroPoint.Dot(point1);
-
-        // Assert
-        Assert.Equal(0, result1);
-        Assert.Equal(0, result2);
-    }
-
-    [Fact]
-    public void Dot_WithNegativeCoordinates_ReturnsCorrectDotProduct()
-    {
-        // Arrange
-        var point1 = new Point(-1, -2, -3);
-        var point2 = new Point(4, 5, 6);
-
-        // Act
-        double result = point1.Dot(point2);
-
-        // Assert
-        Assert.Equal(-32, result); // -1*4 + -2*5 + -3*6 = -4 - 10 - 18 = -32
-    }
-
-    [Fact]
-    public void Dot_ParallelVectors_ReturnsProductOfMagnitudes()
+    [Test]
+    public async Task Dot_ParallelVectors_ReturnsProductOfMagnitudes()
     {
         // Arrange
         var point1 = new Point(2, 0, 0);
@@ -61,21 +36,7 @@ public class PointExtensionsTest
         double magnitude2 = Math.Sqrt(point2.X * point2.X + point2.Y * point2.Y + point2.Z * point2.Z);
 
         // Assert
-        Assert.Equal(6, result);
-        Assert.Equal(magnitude1 * magnitude2, result);
-    }
-
-    [Fact]
-    public void Dot_PerpendicularVectors_ReturnsZero()
-    {
-        // Arrange
-        var point1 = new Point(1, 0, 0);
-        var point2 = new Point(0, 1, 0);
-
-        // Act
-        double result = point1.Dot(point2);
-
-        // Assert
-        Assert.Equal(0, result);
+        await Assert.That(result).IsEqualTo(6);
+        await Assert.That(magnitude1 * magnitude2).IsEqualTo(result);
     }
 }
