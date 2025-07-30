@@ -49,7 +49,7 @@ The packages do not include Tekla.Structures assemblies. They should be added se
 
 <code>OfType\<T></code> extension method is added to common enumerators to convert them into <code>IEnumerable\<T></code>
 
-Old way to retrieve beams using <code>ModelObjectEnumerator</code>:
+❌ Old way to retrieve beams using <code>ModelObjectEnumerator</code>:
 
 ```c#
 using Tekla.Structures.Model;
@@ -67,7 +67,7 @@ while (enumerator.MoveNext())
 }
 ```
 
-With TeklaAPIExtensions.Model becomes
+✅ With TeklaAPIExtensions.Model becomes
 
 ```c#
 using Tekla.Structures.Model;
@@ -85,50 +85,50 @@ var beams = new TSMUI.ModelObjectSelector()
 ```c#
 ModelObject anyModelObject;
 
-// Retrieve string UDA with default API
+// ❌ Retrieve string UDA with default API
 string value = "";
 if (!anyModelObject.GetUserProperty("MY_ATTRIBUTE", ref value))
 {
     Console.WriteLine("UDA not found");
 }
 
-// Retrieve string UDA with TeklaAPIExtensions.Model
+// ✅ Retrieve string UDA with TeklaAPIExtensions.Model
 if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out string value))
 {
     Console.WriteLine("UDA not found");
 }
 
-// Double UDA
+// ✅ Double UDA
 if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out double value))
 {
     Console.WriteLine("UDA not found");
 }
 
-// Int UDA
+// ✅ Int UDA
 if (!anyModelObject.TryGetUDA("MY_ATTRIBUTE", out int value))
 {
     Console.WriteLine("UDA not found");
 }
 
-// String property
+// ✅ String property
 if (!anyModelObject.TryGetProperty("PROFILE", out string value))
 {
     Console.WriteLine("PROFILE not found");
 }
 
-// Double property
+// ✅ Double property
 if (!anyModelObject.TryGetProperty("WEIGHT", out double value))
 {
     Console.WriteLine("WEIGHT not found");
 }
 
-// Int property
+// ✅ Int property
 if (!anyModelObject.TryGetProperty("CLASS_ATTR", out int value))
 {
     Console.WriteLine("CLASS_ATTR not found");
 }
 
-// Dynamic string
+// ✅ Dynamic string
 if (!anyModelObject.TryGetDynamicStringProperty("MY_STRING", out string value))
 {
     Console.WriteLine("MY_STRING not found");
