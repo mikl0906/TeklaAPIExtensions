@@ -18,7 +18,7 @@
   <!-- Nuget package properties -->
   <PropertyGroup>
     <Authors>Mikhail Koshelev</Authors>
-    <Version>0.0.10</Version>
+    <Version>0.0.11</Version>
     <RepositoryUrl>https://github.com/mikl0906/TeklaAPIExtensions</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
